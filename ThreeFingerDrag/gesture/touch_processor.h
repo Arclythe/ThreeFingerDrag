@@ -57,6 +57,7 @@ namespace Touchpad
         Event<TouchActivityEventArgs> touch_activity_event_;
         Event<TouchUpEventArgs> touch_up_event_;
         std::vector<TouchContact> parsed_contacts_;
+        bool ignore_gesture_until_release_ = false;
         mutable std::mutex contacts_mutex_;
 
         GlobalConfig* config;

@@ -22,6 +22,7 @@ namespace Touchpad
     void TouchProcessor::ClearContacts()
     {
         parsed_contacts_.clear();
+        //ignore_gesture_until_release_ = false;
     }
 
     /**
@@ -293,6 +294,26 @@ namespace Touchpad
         const bool has_contact = current_contact_count > 0;
         const auto time = std::chrono::high_resolution_clock::now();
 
+        if (ignore_gesture_until_release_)
+        {
+            if (!has_contact)
+                ignore_gesture_until_release_ = false;
+
+            config->SetPreviousTouchContacts(parsed_contacts_);
+            config->SetLastEvent(time);
+            return;
+        }
+
+        if (current_contact_count == EventListeners::NUM_TOUCH_CONTACTS_REQUIRED && !ValidateContacts(parsed_contacts_))
+        {
+            ignore_gesture_until_release_ = true;
+            config->SetGestureStarted(false);
+            config->SetCancellationStarted(false);
+            config->SetPreviousTouchContacts(parsed_contacts_);
+            config->SetLastEvent(time);
+            return;
+        }
+
         // Construct the TouchInputData object
         TouchInputData touchInputData;
         touchInputData.contacts = parsed_contacts_;
@@ -306,7 +327,7 @@ namespace Touchpad
         const bool previous_has_contact = previous_contact_count > 0;
         const bool touch_up_event = !has_contact && previous_has_contact || !has_contact && !previous_has_contact;
 
-        //TODO if the initial 3 fingers are validated as false on ValidateContacts(), the gesture should always be ignored until all fingers are lifted.
+        // if the initial 3 fingers are validated as false on ValidateContacts(), the gesture should always be ignored until all fingers are lifted.
         if (touch_up_event)
         {
             touch_up_event_.RaiseEvent(TouchUpEventArgs(time, &touchInputData, config->GetPreviousTouchContacts()));
