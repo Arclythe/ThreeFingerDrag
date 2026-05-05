@@ -297,6 +297,7 @@ namespace Touchpad
         TouchInputData touchInputData;
         touchInputData.contacts = parsed_contacts_;
         touchInputData.contact_count = parsed_contacts_.size();
+        //TODO change here to check if three fingers are close enough to each other to be considered a valid gesture, instead of just checking contact count
         touchInputData.can_perform_gesture = current_contact_count ==
             EventListeners::NUM_TOUCH_CONTACTS_REQUIRED;
 
@@ -367,6 +368,7 @@ namespace Touchpad
 
     int TouchProcessor::CountTouchPointsMakingContact(const std::vector<TouchContact>& points)
     {
+        //TODO instead of counting all points that are on the surface, check if there are three points that are close enough to each other to be considered a valid gesture
         return std::count_if(points.begin(), points.end(), [](const TouchContact& p)
         {
             return p.on_surface;
