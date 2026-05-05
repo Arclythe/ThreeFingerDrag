@@ -297,9 +297,9 @@ namespace Touchpad
         TouchInputData touchInputData;
         touchInputData.contacts = parsed_contacts_;
         touchInputData.contact_count = parsed_contacts_.size();
-        //TODO change here to check if three fingers are close enough to each other to be considered a valid gesture, instead of just checking contact count
-        touchInputData.can_perform_gesture = current_contact_count ==
-            EventListeners::NUM_TOUCH_CONTACTS_REQUIRED;
+
+        // Check if three fingers are close enough to each other to be considered a valid gesture, instead of just checking contact count
+        touchInputData.can_perform_gesture = ValidateContacts(parsed_contacts_);
 
         // Determine if a touch up event should be raised
         const int previous_contact_count = CountTouchPointsMakingContact(config->GetPreviousTouchContacts());
@@ -366,9 +366,34 @@ namespace Touchpad
         return oss.str();
     }
 
+    int TouchProcessor::CalculateDistance(const TouchContact& contact1, const TouchContact& contact2)
+    {
+        const int delta_x = contact1.x - contact2.x;
+        const int delta_y = contact1.y - contact2.y;
+        
+        return static_cast<int>(std::sqrt(delta_x * delta_x + delta_y * delta_y));
+    }
+    // Instead of counting all points that are on the surface, check if there are three points that are close enough to each other to be considered a valid gesture
+    bool TouchProcessor::ValidateContacts(const std::vector<TouchContact>& contacts)
+    {
+        // TODO This value may need to be adjusted based on the touchpad's coordinate system and typical finger spacing
+        int maximum_distance = 2000;
+        if (contacts.size() != EventListeners::NUM_TOUCH_CONTACTS_REQUIRED)
+            return false;
+
+        // Check if all contacts are within a certain distance from each other
+        const int distance1 = CalculateDistance(contacts[0], contacts[1]);
+        const int distance2 = CalculateDistance(contacts[1], contacts[2]);
+        const int distance3 = CalculateDistance(contacts[0], contacts[2]);
+
+        if (distance1 > maximum_distance || distance2 > maximum_distance || distance3 > maximum_distance)
+            return false;
+
+        return true;
+    }
+
     int TouchProcessor::CountTouchPointsMakingContact(const std::vector<TouchContact>& points)
     {
-        //TODO instead of counting all points that are on the surface, check if there are three points that are close enough to each other to be considered a valid gesture
         return std::count_if(points.begin(), points.end(), [](const TouchContact& p)
         {
             return p.on_surface;

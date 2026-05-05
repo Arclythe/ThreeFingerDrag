@@ -44,10 +44,12 @@ namespace Touchpad
         void UpdateTouchContactsState(const std::vector<TouchContact>& received_contacts);
         void RaiseEventsIfNeeded();
         void LogEventDetails(bool touch_up_event, const std::chrono::high_resolution_clock::time_point& time) const;
+        bool ValidateContacts(const std::vector<TouchContact>& contacts);
         
         static bool ValueWithinRange(int value, int minimum, int maximum);
         static std::string DebugPoints(const std::vector<TouchContact>& data);
         static int CountTouchPointsMakingContact(const std::vector<TouchContact>& points);
+        static int CalculateDistance(const TouchContact& contact1, const TouchContact& contact2);
 
         EventListeners::TouchActivityListener activity_listener_;
         EventListeners::TouchUpListener touch_up_listener_;
