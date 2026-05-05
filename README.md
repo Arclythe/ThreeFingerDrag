@@ -30,12 +30,12 @@ Emulates the macOS three-finger-drag feature on your Windows precision touchpad.
 - Elevated mode to start the program with admin privileges (manual process is required for now).
 - Optional customization of activation & deactivation conditions.
 
-## Build with Visual Studio
+## Build with CMake
 
-You can build the project using Visual Studio 2017 or newer.
+You can build the project with CMake and a recent Visual Studio toolchain.
 
-1. Open the ThreeFingerDrag.sln file in Visual Studio.
-2. Select the "Release" configuration and click "Build Solution".
+1. Configure the project: `cmake -S . -B build`
+2. Build the Release target: `cmake --build build --config Release`
 3. The built executable will be located in the `/build/` directory in the base project folder.
 
 ## Create Installer via [Inno Setup](https://jrsoftware.org/isinfo.php)

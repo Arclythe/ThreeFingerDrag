@@ -73,4 +73,9 @@ private:
 #define INFO(msg)       Logger::GetInstance().Info(msg)
 #define DEBUG(msg)      Logger::GetInstance().Debug(msg)
 #define WARNING(msg)    Logger::GetInstance().Warning(msg)
-#define ERROR(msg)      Logger::GetInstance().Error(msg)
+#define LOG_ERROR(msg)  Logger::GetInstance().Error(msg)
+
+// Keep ERROR for backward compatibility in context where Windows.h conflicts are resolved
+#ifndef ERROR
+#define ERROR(msg)      LOG_ERROR(msg)
+#endif

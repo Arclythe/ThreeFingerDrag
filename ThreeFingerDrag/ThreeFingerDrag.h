@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <Windows.h>
+#include <versionhelpers.h>
 #include "resource.h"
 #include "logging/logger.h"
 #include "task/task_scheduler.h"
