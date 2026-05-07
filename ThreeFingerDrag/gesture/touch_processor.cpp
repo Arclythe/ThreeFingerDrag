@@ -8,12 +8,12 @@ namespace Touchpad
     {
         config = GlobalConfig::GetInstance();
 
-        touch_activity_event_.AddListener(std::bind(
+        active_gesture_event_.AddListener(std::bind(
             &EventListeners::TouchActivityListener::OnTouchActivity,
             &activity_listener_,
             std::placeholders::_1));
 
-        touch_up_event_.AddListener(std::bind(
+        inactive_gesture_event_.AddListener(std::bind(
             &EventListeners::TouchUpListener::OnTouchUp,
             &touch_up_listener_,
             std::placeholders::_1));
@@ -331,11 +331,11 @@ namespace Touchpad
         // if the initial 3 fingers are validated as false on ValidateContacts(), the gesture should always be ignored until all fingers are lifted.
         if (touch_up_event)
         {
-            touch_up_event_.RaiseEvent(TouchUpEventArgs(time, &touchInputData, config->GetPreviousTouchContacts()));
+            inactive_gesture_event_.RaiseEvent(TouchUpEventArgs(time, &touchInputData, config->GetPreviousTouchContacts()));
         }
         else if (has_contact)
         {
-            touch_activity_event_.RaiseEvent(
+            active_gesture_event_.RaiseEvent(
                 TouchActivityEventArgs(time, &touchInputData, config->GetPreviousTouchContacts()));
         }
 

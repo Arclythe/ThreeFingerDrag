@@ -54,8 +54,8 @@ namespace Touchpad
         EventListeners::TouchActivityListener activity_listener_;
         EventListeners::TouchUpListener touch_up_listener_;
 
-        Event<TouchActivityEventArgs> touch_activity_event_;
-        Event<TouchUpEventArgs> touch_up_event_;
+        Event<TouchActivityEventArgs> active_gesture_event_;
+        Event<TouchUpEventArgs> inactive_gesture_event_;
         std::vector<TouchContact> parsed_contacts_;
         bool ignore_gesture_until_release_ = false;
         mutable std::mutex contacts_mutex_;
