@@ -297,8 +297,9 @@ namespace Touchpad
         if (ignore_gesture_until_release_)
         {
             if (!has_contact)
+            {
                 ignore_gesture_until_release_ = false;
-
+            }
             config->SetPreviousTouchContacts(parsed_contacts_);
             config->SetLastEvent(time);
             return;
