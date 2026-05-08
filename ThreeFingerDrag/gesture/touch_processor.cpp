@@ -332,8 +332,7 @@ namespace Touchpad
         if (touch_up_event)
         {
             inactive_gesture_event_.RaiseEvent(TouchUpEventArgs(time, &touchInputData, config->GetPreviousTouchContacts()));
-        }
-        else if (has_contact)
+        } else 
         {
             active_gesture_event_.RaiseEvent(
                 TouchActivityEventArgs(time, &touchInputData, config->GetPreviousTouchContacts()));
