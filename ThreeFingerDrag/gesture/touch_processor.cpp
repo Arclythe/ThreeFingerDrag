@@ -325,8 +325,9 @@ namespace Touchpad
 
         // Determine if a touch up event should be raised
         const int previous_contact_count = CountTouchPointsMakingContact(config->GetPreviousTouchContacts());
-        const bool previous_has_contact = previous_contact_count > 0;
-        const bool touch_up_event = !has_contact && previous_has_contact || !has_contact && !previous_has_contact;
+        //const bool previous_has_contact = previous_contact_count > 0;
+        //const bool touch_up_event = !has_contact && previous_has_contact || !has_contact && !previous_has_contact;
+        bool touch_up_event = (previous_contact_count == 3) && (current_contact_count == 2);
 
         // if the initial 3 fingers are validated as false on ValidateContacts(), the gesture should always be ignored until all fingers are lifted.
         if (touch_up_event)
