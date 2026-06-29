@@ -1,0 +1,79 @@
+# Eclipse CDT default formatter style (K&R-based)
+---
+Language: Cpp
+BasedOnStyle: Microsoft
+
+# Indentation: Eclipse default uses 1 tab = 4 spaces (tab character)
+UseTab: Always
+TabWidth: 4
+IndentWidth: 4
+AccessModifierOffset: -4
+
+AlignAfterOpenBracket: true
+AlignArrayOfStructures: Left
+
+# Brace style: K&R — opening brace on same line for functions and control structures
+BreakBeforeBraces: Attach
+BraceWrapping:
+  AfterFunction: false
+  AfterClass: false
+  AfterStruct: false
+  AfterEnum: false
+  BeforeCatch: false
+  BeforeElse: false
+  AfterControlStatement: Never
+  BeforeLambdaBody: false
+  BeforeWhile: false
+BreakBeforeCloseBracketBracedList: true
+BreakBeforeCloseBracketFunction: true
+BreakBeforeCloseBracketIf: true
+BreakBeforeCloseBracketLoop: true
+
+# Spaces
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInContainerLiterals: false
+SpacesInCStyleCastParentheses: false
+SpaceAfterCStyleCast: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeRangeBasedForLoopColon: true
+
+# Column limit: Eclipse default has no strict limit, but 80 is conventional
+# ColumnLimit: 80
+
+
+# Pointer and reference alignment: Eclipse puts * with type
+PointerAlignment: Left
+
+# Include sorting
+SortIncludes: false
+
+# Initializer list formatting
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerIndentWidth: 4
+PackConstructorInitializers: Never
+
+# Namespaces
+NamespaceIndentation: None
+CompactNamespaces: false
+
+# Short blocks/functions/lambdas on single line
+AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# Line breaking
+BinPackArguments: true
+BinPackParameters: true
+AlwaysBreakTemplateDeclarations: Yes
+
+# Comment handling - minimal interference
+ReflowComments: false
+AlignTrailingComments: false
+# Don't merge comments with code on same line
+PenaltyExcessCharacter: 0
+# Keep comment line breaks as-is
+ColumnLimit: 0  # Remove column limit entirely
+IndentCaseLabels: true
