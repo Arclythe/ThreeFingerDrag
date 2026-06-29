@@ -164,6 +164,7 @@ namespace EventListeners
 
             config->SetCancellationStarted(false);
 
+            //TODO this is the output API
             // Move the mouse pointer based on the calculated vector
             Cursor::MoveCursor(delta_x, delta_y);
 

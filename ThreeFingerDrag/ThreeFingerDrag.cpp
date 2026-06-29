@@ -164,6 +164,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         
     // Raw touch device input
     case WM_INPUT:
+        //TODO this is the input API
         touch_processor.ProcessRawInput((HRAWINPUT)lParam);
         break;
 
