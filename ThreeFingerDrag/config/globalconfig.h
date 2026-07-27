@@ -48,6 +48,7 @@ public:
     bool IsGestureStarted() const;
     bool IsCancellationStarted() const;
     bool LogDebug() const;
+    bool IsDebugLoggingEnabled() const;
     bool IsPortableMode() const;
     std::chrono::time_point<std::chrono::steady_clock> GetCancellationTime() const;
     std::chrono::time_point<std::chrono::steady_clock> GetLastValidMovement() const;

@@ -21,7 +21,7 @@ namespace EventListeners
         Cursor::LeftMouseUp();
         config->SetCancellationStarted(false);
         config->SetGestureStarted(false);
-        if (config->LogDebug())
+        if (config->IsDebugLoggingEnabled())
             DEBUG("Cancelled gesture.");
     }
 
@@ -49,7 +49,7 @@ namespace EventListeners
             {
                 config->SetGestureStarted(true);
                 gesture_start_ = current_time;
-                if (config->LogDebug())
+                if (config->IsDebugLoggingEnabled())
                     DEBUG("Started gesture.");
             }
 
@@ -222,7 +222,7 @@ namespace EventListeners
             config->SetCancellationTime(current_time);
             config->SetLastValidMovement(current_time);
 
-            if (config->LogDebug())
+            if (config->IsDebugLoggingEnabled())
                 DEBUG("Started gesture cancellation.");
         }
     };

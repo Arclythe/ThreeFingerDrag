@@ -108,6 +108,15 @@ bool GlobalConfig::LogDebug() const
     return log_debug_;
 }
 
+bool GlobalConfig::IsDebugLoggingEnabled() const
+{
+#ifndef NDEBUG
+    return true;
+#else
+    return log_debug_;
+#endif
+}
+
 void GlobalConfig::SetLogDebug(bool log)
 {
     log_debug_ = log;

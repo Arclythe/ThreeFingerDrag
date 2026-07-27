@@ -32,7 +32,7 @@ namespace Touchpad
      */
     void TouchProcessor::ProcessRawInput(const HRAWINPUT hRawInputHandle)
     {
-        const bool log_debug = config->LogDebug();
+        const bool log_debug = config->IsDebugLoggingEnabled();
 
         // Initialize touchpad input data struct with default values.
         TouchInputData data{};
@@ -340,7 +340,7 @@ namespace Touchpad
         }
 
         // Optionally, log the event details for debugging
-        if (config->LogDebug())
+        if (config->IsDebugLoggingEnabled())
         {
             LogEventDetails(touch_up_event, time);
         }

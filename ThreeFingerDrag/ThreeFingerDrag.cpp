@@ -118,7 +118,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 BOOL InitInstance()
 {
-    const bool log = config->LogDebug();
+    const bool log = config->IsDebugLoggingEnabled();
     // Initialize WinToast notifications
     if (!InitializeWindowsNotifications())
     {
@@ -148,7 +148,7 @@ BOOL InitInstance()
     // Show the settings icon
     Shell_NotifyIcon(NIM_ADD, &tray_icon_data);
 
-    if (config->LogDebug())
+    if (config->IsDebugLoggingEnabled())
         DEBUG("Application initialized successfully!");
     return TRUE;
 }
@@ -210,7 +210,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             Shell_NotifyIcon(NIM_DELETE, &tray_icon_data);
             InitializeGUI();
             Shell_NotifyIcon(NIM_ADD, &tray_icon_data);
-            if (config->LogDebug())
+            if (config->IsDebugLoggingEnabled())
                 DEBUG("Refreshing tray icon");
             break;
         }
@@ -505,7 +505,7 @@ void StartPeriodicUpdateThreads()
                 {
                     EventListeners::CancelGesture();
                     touch_processor.ClearContacts();
-                    if (config->LogDebug())
+                    if (config->IsDebugLoggingEnabled())
                         DEBUG("Cancelled gesture (automatic timeout).");
                 }
             }
@@ -526,7 +526,7 @@ void StartPeriodicUpdateThreads()
 
                 EventListeners::CancelGesture();
                 touch_processor.ClearContacts();
-                if (config->LogDebug())
+                if (config->IsDebugLoggingEnabled())
                     DEBUG("Cancelled gesture (cancellation timeout).");
             }
             else if (Cursor::IsLeftMouseDown()) // Check for automatic gesture timeout (failsafe)
@@ -537,7 +537,7 @@ void StartPeriodicUpdateThreads()
                 {
                     EventListeners::CancelGesture();
                     touch_processor.ClearContacts();
-                    if (config->LogDebug())
+                    if (config->IsDebugLoggingEnabled())
                         DEBUG("Cancelled gesture (automatic timeout).");
                 }
             }
@@ -712,7 +712,7 @@ void PerformAdditionalSteps()
         INFO("Running from installed path.");
     
     // Notify the user if debug mode is enabled
-    if (config->LogDebug())
+    if (config->IsDebugLoggingEnabled())
         Popups::ShowToastNotification(L"To find logs & configuration, click 'Open Config' in the tray menu.",
                                       L"(ThreeFingerDrag) Debug mode enabled!");
 }

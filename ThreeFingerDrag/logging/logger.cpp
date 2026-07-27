@@ -2,8 +2,31 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
+#include <iostream>
+#include <cstdio>
 
 #include "../application.h"
+
+namespace
+{
+#ifndef NDEBUG
+    void InitializeDebugConsole()
+    {
+        static bool console_initialized = false;
+        if (console_initialized)
+            return;
+
+        console_initialized = true;
+
+        if (GetConsoleWindow() == nullptr)
+            AllocConsole();
+
+        FILE* console_stream = nullptr;
+        freopen_s(&console_stream, "CONOUT$", "w", stdout);
+        freopen_s(&console_stream, "CONOUT$", "w", stderr);
+    }
+#endif
+}
 
 Logger& Logger::GetInstance()
 {
@@ -13,6 +36,10 @@ Logger& Logger::GetInstance()
 
 Logger::Logger(const std::string& logFileName)
 {
+#ifndef NDEBUG
+    InitializeDebugConsole();
+#endif
+
     log_file_path_ = Application::GetConfigurationFolderPath();
 
     // Check if the folder exists, and create it if necessary
@@ -81,6 +108,10 @@ void Logger::Info(const std::string& message)
 void Logger::Debug(const std::string& message)
 {
     WriteLog("[DEBUG]", message);
+
+#ifndef NDEBUG
+    std::cout << "[DEBUG] " << message << std::endl;
+#endif
 }
 
 void Logger::Warning(const std::string& message)
