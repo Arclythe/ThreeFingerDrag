@@ -234,6 +234,7 @@ namespace Touchpad
             debug << DebugPoints(received_contacts);
             DEBUG(debug.str());
         }
+        //TODO the inputs are received_contacts
 
         UpdateTouchContactsState(received_contacts);
         RaiseEventsIfNeeded();
